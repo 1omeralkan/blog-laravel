@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Post::with(['user', 'category', 'tags']);
+        $query = Post::with(['user', 'category', 'tags'])->where('is_approved', true);
         if ($request->filled('search')) {
             $query->where('title', 'ILIKE', '%' . $request->search . '%');
         }
@@ -66,6 +66,7 @@ class PostController extends Controller
         $post = new \App\Models\Post($validated);
         $post->user_id = auth()->id();
         $post->slug = \Str::slug($validated['title']) . '-' . uniqid();
+        $post->is_approved = false;
         if ($request->hasFile('image')) {
             $post->image = $request->file('image')->store('posts', 'public');
         }
@@ -116,7 +117,7 @@ class PostController extends Controller
         }
         $post->save();
         $post->tags()->sync($validated['tags'] ?? []);
-        return redirect()->route('posts.show', $post->slug)->with('success', 'Blog yazısı güncellendi!');
+        return redirect()->route('dashboard')->with('success', 'Blog yazısı güncellendi!');
     }
 
     /**
@@ -126,6 +127,9 @@ class PostController extends Controller
     {
         $this->authorize('delete', $post);
         $post->delete();
+        if (request()->has('admin')) {
+            return redirect()->route('filament.admin.pages.dashboard')->with('success', 'Blog yazısı silindi!');
+        }
         return redirect()->back()->with('success', 'Blog yazısı silindi!');
     }
 
@@ -134,7 +138,7 @@ class PostController extends Controller
      */
     public function myPosts(Request $request)
     {
-        $query = Post::with(['category', 'tags'])->where('user_id', auth()->id());
+        $query = Post::with(['category', 'tags'])->where('user_id', auth()->id())->where('is_approved', true);
         if ($request->filled('search')) {
             $query->where('title', 'ILIKE', '%' . $request->search . '%');
         }
@@ -156,5 +160,12 @@ class PostController extends Controller
         // Diğer filtreler için buraya ekleme yapılabilir
         $posts = $query->orderByDesc('created_at')->paginate(10);
         return view('dashboard', compact('posts'));
+    }
+
+    public function approve(\App\Models\Post $post)
+    {
+        $post->is_approved = true;
+        $post->save();
+        return redirect()->back()->with('success', 'Post onaylandı!');
     }
 }

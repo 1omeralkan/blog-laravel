@@ -60,17 +60,23 @@
                         <div class="space-y-4">
                             @foreach($posts as $post)
                                 <div class="p-4 bg-gray-100 dark:bg-gray-900 rounded shadow flex flex-col md:flex-row md:items-center md:justify-between">
-                                    <div>
-                                        <a href="{{ route('posts.show', $post->slug) }}" class="text-lg font-semibold text-blue-700 dark:text-blue-400 hover:underline">{{ $post->title }}</a>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">{{ $post->created_at->format('d.m.Y H:i') }}</div>
-                                    </div>
-                                    <div class="mt-2 md:mt-0 flex gap-2">
-                                        <a href="{{ route('posts.edit', $post->slug) }}" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded text-sm">Düzenle</a>
-                                        <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" onsubmit="return confirm('Silmek istediğine emin misin?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm">Sil</button>
-                                        </form>
+                                    <div class="flex items-center gap-6 w-full">
+                                        @if($post->image)
+                                            <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-20 h-20 object-cover rounded-xl shadow-lg border border-gray-300 dark:border-gray-700 flex-shrink-0" />
+                                        @endif
+                                        <div class="flex flex-col justify-center flex-1">
+                                            <a href="{{ route('posts.show', $post->slug) }}" class="text-xl font-bold text-blue-700 dark:text-blue-400 hover:underline">{{ $post->title }}</a>
+                                            <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $post->created_at->format('d.m.Y H:i') }}</div>
+                                            <div class="flex gap-2 mt-3">
+                                                <a href="{{ route('posts.show', $post->slug) }}" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm">Devamını Oku</a>
+                                                <a href="{{ route('posts.edit', $post->slug) }}" class="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded text-sm">Düzenle</a>
+                                                <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" onsubmit="return confirm('Silmek istediğine emin misin?');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm">Sil</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach

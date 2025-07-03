@@ -34,6 +34,7 @@ class CommentController extends Controller
         $comment = $post->comments()->create([
             'user_id' => auth()->id(),
             'content' => $validated['content'],
+            'is_approved' => false,
         ]);
         return redirect()->route('posts.show', $post->slug)->with('success', 'Yorum eklendi!');
     }
@@ -67,6 +68,14 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $comment->delete();
         //
+    }
+
+    public function approve(\App\Models\Comment $comment)
+    {
+        $comment->is_approved = true;
+        $comment->save();
+        return redirect()->back()->with('success', 'Yorum onaylandı!');
     }
 }

@@ -45,8 +45,14 @@
             </div>
         </form>
         @endauth
+        @guest
+        <div class="mb-6 bg-gray-100 dark:bg-gray-700 p-4 rounded-lg text-center">
+            <p class="mb-3 text-gray-700 dark:text-gray-200">Yorum yapmak için kayıt olmalısın.</p>
+            <a href="{{ route('register', ['redirect' => url()->current()]) }}" class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold text-sm transition">Kayıt Ol</a>
+        </div>
+        @endguest
         <div class="space-y-4">
-            @forelse(($post->comments ?? []) as $comment)
+            @forelse($post->comments()->where('is_approved', true)->get() as $comment)
                 <div class="bg-white dark:bg-gray-800 rounded p-4 shadow flex flex-col">
                     <div class="flex items-center mb-2">
                         <span class="font-semibold text-gray-900 dark:text-white">{{ $comment->user->name ?? 'Anonim' }}</span>

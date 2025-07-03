@@ -1,5 +1,5 @@
 <div class="mt-10">
-    <h2 class="text-lg font-semibold mb-4">Son Eklenen Yazılar</h2>
+    <h2 class="text-lg font-semibold mb-4">Onay Bekleyen Yazılar</h2>
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white rounded-lg shadow">
             <thead>
@@ -16,19 +16,16 @@
                         <td class="px-4 py-2">{{ $post->title }}</td>
                         <td class="px-4 py-2">{{ $post->user->name ?? '-' }}</td>
                         <td class="px-4 py-2">{{ $post->created_at->format('d.m.Y H:i') }}</td>
-                        <td class="px-4 py-2 flex gap-2">
-                            <a href="{{ route('posts.edit', $post->slug) }}" class="text-blue-600 hover:underline">Düzenle</a>
-                            <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" onsubmit="return confirm('Yazıyı silmek istediğinize emin misiniz?');">
+                        <td class="px-4 py-2">
+                            <form action="{{ route('posts.approve', $post->id) }}" method="POST" style="display:inline">
                                 @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="admin" value="1">
-                                <button type="submit" class="text-red-600 hover:underline ml-2">Sil</button>
+                                <button type="submit" class="text-green-600 hover:underline">Onayla</button>
                             </form>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="4" class="px-4 py-2 text-center text-gray-400">Henüz yazı eklenmemiş.</td>
+                        <td colspan="4" class="px-4 py-2 text-center text-gray-400">Onay bekleyen yazı yok.</td>
                     </tr>
                 @endforelse
             </tbody>

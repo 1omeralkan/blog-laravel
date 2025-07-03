@@ -63,6 +63,9 @@
                         <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">#{{ $tag->name }}</span>
                     @endforeach
                 </div>
+                <div class="mt-4">
+                    <a href="{{ route('posts.show', $post->slug) }}" class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold text-sm transition">Devamını Oku</a>
+                </div>
             </div>
         @empty
             <div class="text-center text-gray-500">Henüz blog yazısı yok.</div>

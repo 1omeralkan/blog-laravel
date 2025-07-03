@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/posts/{post:slug}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::post('/posts/{post:slug}/comments', [App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [App\Http\Controllers\CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('/posts/{post}/approve', [App\Http\Controllers\PostController::class, 'approve'])->name('posts.approve');
+    Route::post('/comments/{comment}/approve', [App\Http\Controllers\CommentController::class, 'approve'])->name('comments.approve');
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home');
