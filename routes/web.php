@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Auth\AdminLoginController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/comments/{comment}', [App\Http\Controllers\CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/posts/{post}/approve', [App\Http\Controllers\PostController::class, 'approve'])->name('posts.approve');
     Route::post('/comments/{comment}/approve', [App\Http\Controllers\CommentController::class, 'approve'])->name('comments.approve');
+    Route::post('/admin/users/{user}/make-admin', [App\Http\Controllers\ProfileController::class, 'makeAdmin'])->name('admin.makeAdmin');
+    Route::delete('/admin/users/{user}', [App\Http\Controllers\ProfileController::class, 'deleteUser'])->name('admin.deleteUser');
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home');
@@ -43,5 +46,8 @@ Route::fallback(function () {
     }
     abort(404);
 });
+
+Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminLoginController::class, 'login']);
 
 require __DIR__.'/auth.php';

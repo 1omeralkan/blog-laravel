@@ -63,4 +63,21 @@ class ProfileController extends Controller
         $user->load(['posts']);
         return view('profile.show', compact('user'));
     }
+
+    public function makeAdmin(Request $request, \App\Models\User $user)
+    {
+        $user->role_id = 0;
+        $user->save();
+        return redirect()->back()->with('success', 'Kullanıcıya admin yetkisi verildi!');
+    }
+
+    public function deleteUser(Request $request, \App\Models\User $user)
+    {
+        // Admin kullanıcıyı silmeye izin verme
+        if ($user->isAdmin()) {
+            return redirect()->back()->with('error', 'Admin kullanıcı silinemez!');
+        }
+        $user->delete();
+        return redirect()->back()->with('success', 'Kullanıcı başarıyla silindi!');
+    }
 }

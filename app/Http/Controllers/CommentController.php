@@ -69,7 +69,10 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         $comment->delete();
-        //
+        if (request()->has('admin')) {
+            return redirect()->route('filament.admin.pages.post-comment-management')->with('success', 'Yorum silindi!');
+        }
+        return redirect()->back()->with('success', 'Yorum silindi!');
     }
 
     public function approve(\App\Models\Comment $comment)

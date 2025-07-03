@@ -33,15 +33,13 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                \App\Filament\Pages\CustomDashboard::class,
+                \App\Filament\Pages\UserManagement::class,
+                \App\Filament\Pages\PostCommentManagement::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 \App\Filament\Widgets\StatsOverviewWidget::class,
-                \App\Filament\Widgets\RecentPostsWidget::class,
-                \App\Filament\Widgets\RecentCommentsWidget::class,
-                \App\Filament\Widgets\UnapprovedPostsWidget::class,
-                \App\Filament\Widgets\UnapprovedCommentsWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

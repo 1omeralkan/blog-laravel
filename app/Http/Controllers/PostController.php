@@ -117,6 +117,9 @@ class PostController extends Controller
         }
         $post->save();
         $post->tags()->sync($validated['tags'] ?? []);
+        if ($request->has('admin')) {
+            return redirect()->route('filament.admin.pages.post-comment-management')->with('success', 'Blog yazısı güncellendi!');
+        }
         return redirect()->route('dashboard')->with('success', 'Blog yazısı güncellendi!');
     }
 
@@ -128,7 +131,7 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
         if (request()->has('admin')) {
-            return redirect()->route('filament.admin.pages.dashboard')->with('success', 'Blog yazısı silindi!');
+            return redirect()->route('filament.admin.pages.post-comment-management')->with('success', 'Blog yazısı silindi!');
         }
         return redirect()->back()->with('success', 'Blog yazısı silindi!');
     }

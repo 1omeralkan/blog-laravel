@@ -6,6 +6,9 @@
     <form action="{{ route('posts.update', $post->slug) }}" method="POST" enctype="multipart/form-data" class="space-y-6 bg-white dark:bg-gray-800 p-8 rounded-lg shadow">
         @csrf
         @method('PUT')
+        image.png        @if(request('admin'))
+            <input type="hidden" name="admin" value="1">
+        @endif
         <div>
             <label class="block font-medium mb-1">Başlık</label>
             <input type="text" name="title" class="w-full rounded border-gray-300 dark:bg-gray-900 dark:text-white" value="{{ old('title', $post->title) }}" required>
