@@ -1,0 +1,61 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="max-w-2xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-8 text-center">Blog Yazısı Düzenle</h1>
+    <form action="{{ route('posts.update', $post->slug) }}" method="POST" enctype="multipart/form-data" class="space-y-6 bg-white dark:bg-gray-800 p-8 rounded-lg shadow">
+        @csrf
+        @method('PUT')
+        <div>
+            <label class="block font-medium mb-1">Başlık</label>
+            <input type="text" name="title" class="w-full rounded border-gray-300 dark:bg-gray-900 dark:text-white" value="{{ old('title', $post->title) }}" required>
+            @error('title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label class="block font-medium mb-1">İçerik</label>
+            <textarea name="content" rows="6" class="w-full rounded border-gray-300 dark:bg-gray-900 dark:text-white" required>{{ old('content', $post->content) }}</textarea>
+            @error('content') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Kategori</label>
+            <select name="category_id" class="w-full rounded border-gray-300 dark:bg-gray-900 dark:text-white">
+                <option value="">Seçiniz</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}" @selected(old('category_id', $post->category_id) == $category->id)>{{ $category->name }}</option>
+                @endforeach
+            </select>
+            @error('category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Etiketler</label>
+            <select name="tags[]" multiple class="w-full rounded border-gray-300 dark:bg-gray-900 dark:text-white">
+                @foreach($tags as $tag)
+                    <option value="{{ $tag->id }}" @selected($post->tags->contains($tag->id))>#{{ $tag->name }}</option>
+                @endforeach
+            </select>
+            @error('tags') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Kapak Görseli</label>
+            @if($post->image)
+                <img src="{{ asset('storage/' . $post->image) }}" alt="Kapak Görseli" class="w-full h-40 object-cover rounded mb-2">
+            @endif
+            <input type="file" name="image" class="w-full">
+            @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Meta Başlık</label>
+            <input type="text" name="meta_title" class="w-full rounded border-gray-300 dark:bg-gray-900 dark:text-white" value="{{ old('meta_title', $post->meta_title) }}">
+            @error('meta_title') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div>
+            <label class="block font-medium mb-1">Meta Açıklama</label>
+            <textarea name="meta_description" rows="2" class="w-full rounded border-gray-300 dark:bg-gray-900 dark:text-white">{{ old('meta_description', $post->meta_description) }}</textarea>
+            @error('meta_description') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        <div class="text-center">
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Güncelle</button>
+        </div>
+    </form>
+</div>
+@endsection 
