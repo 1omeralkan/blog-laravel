@@ -14,6 +14,7 @@ class CustomDashboard extends Page
     protected static ?string $navigationLabel = 'Dashboard';
     protected static ?string $slug = 'dashboard';
     protected static string $view = 'filament.pages.custom-dashboard';
+    protected static ?string $title = '';
 
     public $postCount;
     public $categoryCount;

@@ -11,6 +11,7 @@ class UserManagement extends Page
     protected static ?string $navigationLabel = 'Kullanıcı Yönetimi';
     protected static ?string $slug = 'user-management';
     protected static string $view = 'filament.pages.user-management';
+    protected static ?string $title = '';
 
     public $users = [];
     public $search = '';

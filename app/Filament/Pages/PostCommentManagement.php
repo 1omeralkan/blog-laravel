@@ -12,6 +12,8 @@ class PostCommentManagement extends Page
     protected static ?string $navigationLabel = 'Post/Yorum Yönetimi';
     protected static ?string $slug = 'post-comment-management';
     protected static string $view = 'filament.pages.post-comment-management';
+    protected static ?string $title = '';
+
 
     public $recentPosts = [];
     public $recentComments = [];
