@@ -1,27 +1,45 @@
 <x-filament::page :heading="false">
     <style>
+        body {
+            font-family: 'Figtree', 'Inter', 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%) !important;
+        }
         .muk-admin-card {
             background: linear-gradient(135deg, #8fd3fe 0%, #19223a 100%);
-            border-radius: 22px;
+            border-radius: 28px;
             box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
-            padding: 2.2rem 2rem 2rem 2rem;
+            padding: 2.5rem 2.2rem 2.2rem 2.2rem;
             color: #fff;
             margin-bottom: 2.2rem;
             animation: fadeInUp 0.8s cubic-bezier(.39,.575,.565,1.000);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(2px);
         }
         .muk-admin-title {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 900;
-            color: #fff;
-            margin-bottom: 1.2rem;
+            background: linear-gradient(90deg, #8fd3fe 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            margin-bottom: 1.5rem;
             letter-spacing: 1px;
             text-align: left;
+            text-shadow: 0 2px 12px #3b82f633;
         }
         .muk-admin-section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #8fd3fe;
+            font-size: 1.35rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #8fd3fe 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
             margin-bottom: 1.1rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 8px #3b82f633;
         }
         .muk-admin-stats {
             display: grid;
@@ -30,55 +48,85 @@
         }
         .muk-admin-stat-card {
             background: rgba(255,255,255,0.13);
-            border-radius: 16px;
+            border-radius: 18px;
             box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);
-            padding: 1.5rem 1.2rem;
+            padding: 1.7rem 1.2rem 1.2rem 1.2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             transition: transform 0.18s, box-shadow 0.18s;
+            position: relative;
         }
         .muk-admin-stat-card:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 12px 36px 0 rgba(31,38,135,0.22);
         }
         .muk-admin-stat-value {
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             font-weight: 900;
             color: #fff;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 8px #3b82f655;
         }
         .muk-admin-stat-label {
             margin-top: 0.5rem;
             color: #b6c6e3;
-            font-size: 1.08rem;
+            font-size: 1.13rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
         }
         .muk-admin-table-card {
             background: rgba(255,255,255,0.13);
-            border-radius: 16px;
+            border-radius: 18px;
             box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);
-            padding: 1.5rem 1.2rem;
+            padding: 1.7rem 1.2rem 1.2rem 1.2rem;
             margin-bottom: 1.2rem;
+            overflow-x: auto;
+        }
+        .muk-admin-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px 0 rgba(31,38,135,0.08);
         }
         .muk-admin-table th, .muk-admin-table td {
             padding: 0.7rem 1rem;
             text-align: left;
         }
         .muk-admin-table th {
-            color: #3b82f6;
-            font-size: 1.04rem;
-            font-weight: 700;
-            background: rgba(255,255,255,0.08);
+            background: linear-gradient(90deg, #3b82f6 0%, #8fd3fe 100%);
+            color: #f8fafc;
+            font-size: 1.08rem;
+            font-weight: 800;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #60a5fa44;
+            box-shadow: 0 2px 8px 0 rgba(31,38,135,0.06);
         }
         .muk-admin-table td {
-            color: #222e4a;
-            font-size: 1.07rem;
-            background: rgba(255,255,255,0.03);
+            color: #23304a;
+            font-size: 1.09rem;
+            background: rgba(255,255,255,0.13);
+            font-weight: 600;
+            border-bottom: 1.5px solid #e0e7ef55;
+            transition: color 0.18s, background 0.18s;
         }
         .muk-admin-table tr {
-            border-bottom: 1px solid #2e3a5e22;
+            border-bottom: 1.5px solid #e0e7ef55;
+            transition: background 0.18s;
         }
-        .muk-admin-table tr:last-child {
+        .muk-admin-table tr:hover td {
+            background: linear-gradient(90deg, #60a5fa 0%, #a5b4fc 100%);
+            color: #fff;
+        }
+        .muk-admin-table tr:last-child td {
             border-bottom: none;
+        }
+        .muk-admin-table td.text-center, .muk-admin-table th.text-center {
+            text-align: center;
         }
         .muk-admin-alert {
             background: linear-gradient(90deg, #fbbf24 0%, #f87171 100%);
@@ -90,7 +138,17 @@
             box-shadow: 0 2px 8px 0 rgba(251,191,36,0.10);
             font-size: 1.08rem;
         }
+        @media (max-width: 1024px) {
+            .grid-cols-3 { grid-template-columns: 1fr !important; }
+            .muk-admin-card, .muk-admin-table-card { padding: 1.2rem 0.7rem; }
+            .muk-admin-title { font-size: 2rem; }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
     </style>
+    <div class="muk-admin-title">Admin Panel Dashboard</div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Genel İstatistikler -->
         <div class="col-span-1 muk-admin-card flex flex-col items-center justify-center">

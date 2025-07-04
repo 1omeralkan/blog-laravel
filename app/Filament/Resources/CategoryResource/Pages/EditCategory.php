@@ -9,11 +9,10 @@ use Filament\Resources\Pages\EditRecord;
 class EditCategory extends EditRecord
 {
     protected static string $resource = CategoryResource::class;
+    protected static string $view = 'filament.pages.edit-category';
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        return [];
     }
 }

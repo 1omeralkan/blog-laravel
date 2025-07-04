@@ -28,6 +28,22 @@
             letter-spacing: 1px;
             user-select: none;
             transition: transform 0.18s;
+            position: relative;
+            overflow: hidden;
+        }
+        .muk-navbar-logo::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -75%;
+            width: 60%; height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0.0) 100%);
+            pointer-events: none;
+            animation: shimmer 2.8s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -75%; }
+            60% { left: 110%; }
+            100% { left: 110%; }
         }
         .muk-navbar-logo:hover {
             transform: scale(1.07) rotate(-2deg);
@@ -64,7 +80,7 @@
     </style>
     <div class="muk-navbar-inner">
         <!-- Sol: Logo -->
-        <a href="{{ route('dashboard') }}" class="muk-navbar-logo">MyBlog</a>
+        <a href="{{ route('dashboard') }}" class="muk-navbar-logo">Admin Panel</a>
         <!-- Orta: Menü -->
         <div class="muk-navbar-menu">
             <a href="{{ route('dashboard') }}" class="muk-navbar-btn{{ request()->routeIs('dashboard') ? ' active' : '' }}">Dashboard</a>

@@ -9,11 +9,10 @@ use Filament\Resources\Pages\ListRecords;
 class ListCategories extends ListRecords
 {
     protected static string $resource = CategoryResource::class;
+    protected static string $view = 'filament.pages.list-categories';
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\CreateAction::make(),
-        ];
+        return [];
     }
 }
