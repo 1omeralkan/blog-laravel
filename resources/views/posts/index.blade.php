@@ -253,6 +253,28 @@
         margin-left: 0.2em;
         cursor: pointer;
     }
+    .post-avatar-effect {
+        display: inline-block;
+        border-radius: 50%;
+        box-shadow: 0 1px 6px 0 rgba(31,38,135,0.13), 0 0 0 2px #8fd3fe44;
+        transition: box-shadow 0.22s, transform 0.16s;
+        padding: 1.5px;
+        background: linear-gradient(120deg, #e0e7ef 0%, #8fd3fe 100%);
+        position: relative;
+    }
+    .post-avatar-effect:hover {
+        box-shadow: 0 4px 16px 0 #6ec1f6cc, 0 0 0 4px #8fd3fe99;
+        transform: scale(1.07);
+    }
+    .post-avatar-img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1.5px solid #fff;
+        background: #f3f6fa;
+        transition: border 0.18s;
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
@@ -321,7 +343,16 @@
                 <div class="flex flex-col justify-center flex-1">
                     <h2 class="post-title">{{ $post->title }}</h2>
                     <div class="post-meta">
-                        <span>👤 {{ optional($post->user)->name ?? 'Anonim' }}</span>
+                        @if($post->user)
+                            <span class="inline-flex items-center gap-2">
+                                <span class="post-avatar-effect">
+                                    <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}" class="post-avatar-img" />
+                                </span>
+                                {{ $post->user->name }}
+                            </span>
+                        @else
+                            <span>Anonim</span>
+                        @endif
                         <span>🗓️ {{ $post->created_at->diffForHumans() }}</span>
                     </div>
                     <div class="post-content">
