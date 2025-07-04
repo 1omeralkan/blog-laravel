@@ -33,5 +33,9 @@
                 {{ $slot ?? '' }}
             </main>
         </div>
+        @isset($headlines)
+            @component('components.news-marquee', ['headlines' => $headlines])
+            @endcomponent
+        @endisset
     </body>
 </html>

@@ -80,7 +80,7 @@
     </style>
     <div class="muk-navbar-inner">
         <!-- Sol: Logo -->
-        <a href="{{ route('dashboard') }}" class="muk-navbar-logo">Admin Panel</a>
+        <a href="{{ route('dashboard') }}" class="muk-navbar-logo">My Blog</a>
         <!-- Orta: Menü -->
         <div class="muk-navbar-menu">
             <a href="{{ route('dashboard') }}" class="muk-navbar-btn{{ request()->routeIs('dashboard') ? ' active' : '' }}">Dashboard</a>
