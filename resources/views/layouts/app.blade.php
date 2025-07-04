@@ -34,8 +34,10 @@
             </main>
         </div>
         @isset($headlines)
-            @component('components.news-marquee', ['headlines' => $headlines])
-            @endcomponent
+            @if (auth()->guest() || (auth()->check() && (request()->routeIs('dashboard') || request()->routeIs('home'))))
+                @component('components.news-marquee', ['headlines' => $headlines])
+                @endcomponent
+            @endif
         @endisset
     </body>
 </html>

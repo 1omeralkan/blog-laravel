@@ -77,6 +77,29 @@
             background: linear-gradient(90deg, #f87171 0%, #fbbf24 100%);
             color: #222e4a;
         }
+        .avatar-effect {
+            display: inline-block;
+            border-radius: 50%;
+            box-shadow: 0 2px 12px 0 rgba(31,38,135,0.18), 0 0 0 3px #8fd3fe44;
+            transition: box-shadow 0.25s, transform 0.18s;
+            padding: 2px;
+            background: linear-gradient(120deg, #e0e7ef 0%, #8fd3fe 100%);
+            position: relative;
+        }
+        .avatar-effect:hover {
+            box-shadow: 0 4px 24px 0 #6ec1f6cc, 0 0 0 5px #8fd3fe99;
+            transform: scale(1.08);
+        }
+        .avatar-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid #fff;
+            box-shadow: 0 1px 4px 0 rgba(31,38,135,0.10);
+            background: #f3f6fa;
+            transition: border 0.22s;
+        }
     </style>
     <div class="muk-navbar-inner">
         <!-- Sol: Logo -->
@@ -91,7 +114,12 @@
         <!-- Sağ: Profil ve Çıkış veya Giriş/Kayıt -->
         <div class="muk-navbar-menu">
             @auth
-                <a href="{{ route('profile.edit') }}" class="muk-navbar-btn{{ request()->routeIs('profile.edit') ? ' active' : '' }}">Profil</a>
+                <a href="{{ route('profile.edit') }}" class="flex items-center" style="padding: 0; background: none; box-shadow: none;">
+                    <span class="avatar-effect">
+                        <img src="{{ Auth::user()->profile_photo_url }}" alt="Profil" class="avatar-img" />
+                    </span>
+                    <span class="sr-only">{{ Auth::user()->name }}</span>
+                </a>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="muk-navbar-btn logout">Çıkış</button>

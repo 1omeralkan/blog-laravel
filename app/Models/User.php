@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'profile_photo',
     ];
 
     /**
@@ -50,5 +51,15 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role_id === 0;
+    }
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        if ($this->profile_photo) {
+            return asset('storage/avatars/' . $this->profile_photo);
+        }
+        // Harici baş harfli avatar servisi
+        $name = urlencode($this->name ?? 'User');
+        return "https://ui-avatars.com/api/?name={$name}&background=8fd3fe&color=222e4a&rounded=true&size=128";
     }
 }

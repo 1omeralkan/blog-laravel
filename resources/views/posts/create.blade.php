@@ -122,9 +122,21 @@
                 <label>Kategori</label>
                 <select name="category_id">
                     <option value="">Seçiniz</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" @selected(old('category_id') == $category->id)>{{ $category->name }}</option>
-                    @endforeach
+                    @php
+                        function renderCategoryOptionsCreate($categories, $selected = null, $level = 0) {
+                            foreach ($categories as $cat) {
+                                $prefix = $level > 0 ? str_repeat('⎯⎯ ', $level-1) . '↳ ' : '';
+                                $padding = $level > 0 ? 'padding-left:' . (18 * $level) . 'px;' : '';
+                                echo '<option value="' . $cat->id . '" style="' . $padding . '"';
+                                if($selected == $cat->id) echo ' selected';
+                                echo '>' . $prefix . $cat->name . '</option>';
+                                if ($cat->children && $cat->children->count()) {
+                                    renderCategoryOptionsCreate($cat->children, $selected, $level + 1);
+                                }
+                            }
+                        }
+                        renderCategoryOptionsCreate($categories->whereNull('parent_id'), old('category_id'));
+                    @endphp
                 </select>
                 @error('category_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
             </div>
