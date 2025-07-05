@@ -28,6 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments/{comment}/approve', [App\Http\Controllers\CommentController::class, 'approve'])->name('comments.approve');
     Route::post('/admin/users/{user}/make-admin', [App\Http\Controllers\ProfileController::class, 'makeAdmin'])->name('admin.makeAdmin');
     Route::delete('/admin/users/{user}', [App\Http\Controllers\ProfileController::class, 'deleteUser'])->name('admin.deleteUser');
+    Route::get('/comments/{comment}/edit', [App\Http\Controllers\CommentController::class, 'edit'])->name('comments.edit');
+    Route::put('/comments/{comment}', [App\Http\Controllers\CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/comments/{comment}/reject', [App\Http\Controllers\CommentController::class, 'reject'])->name('comments.reject')->middleware('auth');
+    Route::delete('/posts/{post}/reject', [App\Http\Controllers\PostController::class, 'reject'])->name('posts.reject')->middleware('auth');
 });
 
 Route::get('/', [PostController::class, 'index'])->name('home');

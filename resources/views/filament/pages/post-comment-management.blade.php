@@ -157,9 +157,8 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->user->name ?? '-' }}</td>
                                 <td>{{ $post->created_at->format('d.m.Y H:i') }}</td>
-                                <td class="flex gap-2">
-                                    <a href="{{ route('posts.edit', $post->slug) }}?admin=1" class="muk-btn-edit">Düzenle</a>
-                                    <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" onsubmit="return confirm('Yazıyı silmek istediğinize emin misiniz?');">
+                                <td>
+                                    <form action="{{ route('posts.destroy', $post->slug) }}" method="POST" onsubmit="return confirm('Yazıyı silmek istediğinize emin misiniz?');" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="admin" value="1">
@@ -205,10 +204,16 @@
                                     @endif
                                 </td>
                                 <td>{{ $comment->created_at->format('d.m.Y H:i') }}</td>
-                                <td>
+                                <td style="text-align: center; padding: 8px 0;">
                                     <form action="{{ route('comments.approve', $comment->id) }}" method="POST" style="display:inline">
                                         @csrf
                                         <button type="submit" class="muk-btn-approve">Onayla</button>
+                                    </form>
+                                    <br>
+                                    <form action="{{ route('comments.reject', $comment->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="muk-btn-delete">Reddet</button>
                                     </form>
                                 </td>
                             </tr>
@@ -240,10 +245,16 @@
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->user->name ?? '-' }}</td>
                                 <td>{{ $post->created_at->format('d.m.Y H:i') }}</td>
-                                <td>
+                                <td style="text-align: center; padding: 8px 0;">
                                     <form action="{{ route('posts.approve', $post->id) }}" method="POST" style="display:inline">
                                         @csrf
                                         <button type="submit" class="muk-btn-approve">Onayla</button>
+                                    </form>
+                                    <br>
+                                    <form action="{{ route('posts.reject', $post->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="muk-btn-delete">Reddet</button>
                                     </form>
                                 </td>
                             </tr>

@@ -276,19 +276,8 @@
             </div>
             @endguest
             <div class="muk-comment-list">
-                @forelse($post->comments()->where('is_approved', true)->get() as $comment)
-                    <div class="muk-comment-card">
-                        <div class="muk-comment-avatar">
-                            {{ mb_substr($comment->user->name ?? 'A', 0, 1) }}
-                        </div>
-                        <div class="muk-comment-content">
-                            <div class="muk-comment-meta">
-                                <span class="muk-comment-author">{{ $comment->user->name ?? 'Anonim' }}</span>
-                                <span class="muk-comment-date">{{ $comment->created_at->diffForHumans() }}</span>
-                            </div>
-                            <div class="muk-comment-text">{{ $comment->content }}</div>
-                        </div>
-                    </div>
+                @forelse($comments as $comment)
+                    <x-comment-item :comment="$comment" :post="$post" />
                 @empty
                     <div class="muk-comment-empty">Henüz yorum yok.</div>
                 @endforelse

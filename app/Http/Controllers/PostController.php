@@ -81,7 +81,9 @@ class PostController extends Controller
     public function show(\App\Models\Post $post)
     {
         $post->load(['user', 'category', 'tags']);
-        return view('posts.show', compact('post'));
+        // Get nested comments
+        $comments = \App\Models\Comment::getRootComments($post->id);
+        return view('posts.show', compact('post', 'comments'));
     }
 
     /**
@@ -112,6 +114,7 @@ class PostController extends Controller
             'meta_description' => 'nullable|string|max:500',
         ]);
         $post->fill($validated);
+        $post->is_approved = false;
         if ($request->hasFile('image')) {
             $post->image = $request->file('image')->store('posts', 'public');
         }
@@ -170,5 +173,17 @@ class PostController extends Controller
         $post->is_approved = true;
         $post->save();
         return redirect()->back()->with('success', 'Post onaylandı!');
+    }
+
+    public function reject(Post $post)
+    {
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
+            abort(403);
+        }
+        if ($post->is_approved) {
+            return redirect()->back()->with('error', 'Onaylanmış post silinemez.');
+        }
+        $post->delete();
+        return redirect()->back()->with('success', 'Post reddedildi ve silindi!');
     }
 }
