@@ -148,7 +148,10 @@
             100% { opacity: 1; transform: translateY(0); }
         }
     </style>
-    <div class="muk-admin-title">Admin Panel Dashboard</div>
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem;">
+        <span class="muk-admin-title" style="margin: 0;">Admin Panel Dashboard</span>
+        <a href="/dashboard" class="muk-dash-btn" style="background: linear-gradient(90deg, #8fd3fe 0%, #3b82f6 100%); color: #222e4a; font-weight:700; padding: 0.5rem 1.2rem; border-radius: 10px; display: inline-block; box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);">← Geri Dön</a>
+    </div>
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Genel İstatistikler -->
         <div class="col-span-1 muk-admin-card flex flex-col items-center justify-center">

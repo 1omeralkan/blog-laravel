@@ -47,7 +47,7 @@
         .muk-admin-form textarea,
         .muk-admin-form select {
             background: rgba(255,255,255,0.13);
-            color: #fff;
+            color: #111 !important;
             border: none;
             border-radius: 10px;
             padding: 0.8rem 1.1rem;
@@ -60,7 +60,7 @@
         .muk-admin-form textarea:focus,
         .muk-admin-form select:focus {
             background: rgba(143,211,254,0.18);
-            color: #fff;
+            color: #111 !important;
             outline: none;
         }
         .muk-admin-form .fi-fo-error {
@@ -111,7 +111,10 @@
         }
     </style>
     <div class="muk-admin-card">
-        <div class="muk-admin-title">Kategori Oluştur</div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem;">
+            <span class="muk-admin-title" style="margin: 0;">Kategori Oluştur</span>
+            <a href="/dashboard" class="muk-dash-btn" style="background: linear-gradient(90deg, #8fd3fe 0%, #3b82f6 100%); color: #222e4a; font-weight:700; padding: 0.5rem 1.2rem; border-radius: 10px; display: inline-block; box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);">← Geri Dön</a>
+        </div>
         <div class="muk-admin-desc">Yeni bir kategori ekleyin. Tüm alanları eksiksiz ve açıklayıcı doldurmanız önerilir.</div>
         <form wire:submit.prevent="create" class="muk-admin-form">
             {{ $this->form }}

@@ -48,7 +48,7 @@
         .muk-admin-form textarea,
         .muk-admin-form select {
             background: rgba(255,255,255,0.13);
-            color: #fff;
+            color: #111 !important;
             border: none;
             border-radius: 10px;
             padding: 0.8rem 1.1rem;
@@ -61,7 +61,7 @@
         .muk-admin-form textarea:focus,
         .muk-admin-form select:focus {
             background: rgba(143,211,254,0.18);
-            color: #fff;
+            color: #111 !important;
             outline: none;
         }
         .muk-admin-form .fi-fo-error {
@@ -135,15 +135,11 @@
     </style>
     <div class="muk-admin-card">
         <form wire:submit.prevent="save" class="muk-admin-form">
-            <div class="flex items-center justify-between w-full mb-2">
-                <div>
-                    <div class="muk-admin-title">Kategori Düzenle</div>
-                    <div class="muk-admin-desc">Kategori bilgilerini güncelleyin veya silin. Tüm alanlar okunaklı ve kullanıcı dostu şekilde tasarlanmıştır.</div>
-                </div>
-                <div>
-                    <button type="button" wire:click="delete" onclick="if(confirm('Bu kategoriyi silmek istediğinize emin misiniz?')) { $wire.delete() }" class="muk-btn-delete">Sil</button>
-                </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem;">
+                <span class="muk-admin-title" style="margin: 0;">Kategori Düzenle</span>
+                <a href="/dashboard" class="muk-dash-btn" style="background: linear-gradient(90deg, #8fd3fe 0%, #3b82f6 100%); color: #222e4a; font-weight:700; padding: 0.5rem 1.2rem; border-radius: 10px; display: inline-block; box-shadow: 0 2px 8px 0 rgba(31,38,135,0.10);">← Geri Dön</a>
             </div>
+            <div class="muk-admin-desc">Kategori bilgilerini güncelleyin veya silin. Tüm alanlar okunaklı ve kullanıcı dostu şekilde tasarlanmıştır.</div>
             {{ $this->form }}
             <div class="w-full flex flex-wrap gap-3 mt-6">
                 <button type="submit" class="muk-btn-save">Kaydet</button>

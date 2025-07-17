@@ -109,6 +109,9 @@
             <a href="{{ route('dashboard') }}" class="muk-navbar-btn{{ request()->routeIs('dashboard') ? ' active' : '' }}">Dashboard</a>
             @auth
             <a href="{{ route('home') }}" class="muk-navbar-btn{{ request()->routeIs('home') ? ' active' : '' }}">Anasayfa</a>
+            @if(Auth::user() && Auth::user()->isAdmin())
+                <a href="/admin" class="muk-navbar-btn" style="background: linear-gradient(90deg, #fbbf24 0%, #f59e42 100%); color: #222e4a; font-weight:700;">Admin Panel</a>
+            @endif
             @endauth
         </div>
         <!-- Sağ: Profil ve Çıkış veya Giriş/Kayıt -->

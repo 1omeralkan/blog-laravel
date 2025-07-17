@@ -115,10 +115,7 @@
         }
     </style>
     <div class="muk-card">
-        <div class="flex gap-4 mb-6 justify-center">
-            <a href="{{ route('login') }}" class="muk-switch-btn{{ request()->routeIs('login') ? ' active' : '' }}">Kullanıcı Girişi</a>
-            <a href="{{ route('admin.login') }}" class="muk-switch-btn{{ request()->routeIs('admin.login') ? ' active' : '' }}">Admin Girişi</a>
-        </div>
+        <!-- Butonlar kaldırıldı -->
         <div class="muk-title">Giriş Yap</div>
         <x-auth-session-status class="mb-4" :status="session('status')" />
         <form method="POST" action="{{ route('login') }}">

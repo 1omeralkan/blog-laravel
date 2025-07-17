@@ -232,6 +232,7 @@
         }
     </style>
     <div class="muk-dash-outer">
+        {{-- Admin Panel butonu kaldırıldı --}}
         <div class="muk-dash-card">
             <div class="muk-dash-title">Blog Yazılarım</div>
             <div class="muk-dash-subtitle">Bugün yeni bir yazı eklemeye ne dersin?</div>
@@ -294,7 +295,9 @@
                 <div class="muk-dash-empty">Henüz bir blog yazısı oluşturmadınız.</div>
             @endif
         </div>
+
     </div>
+
     <script>
     function renderCategoryTree(tree, selected, level = 0, parentId = null) {
         let html = '<ul>';

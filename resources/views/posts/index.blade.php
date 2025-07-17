@@ -275,6 +275,28 @@
         background: #f3f6fa;
         transition: border 0.18s;
     }
+    .post-image-topright {
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        width: 100px;
+        height: 100px;
+        border-radius: 14px;
+        object-fit: cover;
+        box-shadow: 0 4px 16px 0 rgba(31,38,135,0.13), 0 0 0 2px #8fd3fe44;
+        border: 2.5px solid #fff;
+        background: #eaf6fb;
+        z-index: 2;
+        transition: box-shadow 0.22s, transform 0.18s, border-color 0.18s;
+        cursor: pointer;
+        filter: brightness(0.98) saturate(1.1);
+    }
+    .post-card:hover .post-image-topright {
+        box-shadow: 0 8px 32px 0 #6ec1f6cc, 0 0 0 4px #8fd3fe99;
+        transform: scale(1.09) rotate(-2deg);
+        border-color: #8fd3fe;
+        filter: brightness(1.05) saturate(1.2);
+    }
 </style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
@@ -335,11 +357,11 @@
     </div>
     <div class="post-grid">
         @forelse($posts as $post)
-        <div class="post-card">
+        <div class="post-card" style="position: relative;">
+            @if($post->image)
+                <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="post-image-topright" />
+            @endif
             <div class="flex items-start gap-5 w-full">
-                @if($post->image)
-                    <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="w-20 h-20 object-cover rounded-xl shadow-lg border border-gray-300 dark:border-gray-700 flex-shrink-0 mt-1" />
-                @endif
                 <div class="flex flex-col justify-center flex-1">
                     <h2 class="post-title">{{ $post->title }}</h2>
                     <div class="post-meta">

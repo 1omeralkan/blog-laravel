@@ -248,7 +248,7 @@
             <img src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}" class="muk-post-image">
         @endif
         <div class="muk-post-content">
-            {!! $post->content !!}
+            {{ $post->content }}
         </div>
         @if($post->tags && count($post->tags))
         <div class="muk-post-tags">

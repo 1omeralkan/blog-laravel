@@ -93,4 +93,15 @@ class ProfileController extends Controller
         $user->delete();
         return redirect()->back()->with('success', 'Kullanıcı başarıyla silindi!');
     }
+
+    public function toggleAdmin(Request $request, \App\Models\User $user)
+    {
+        if ($user->isAdmin()) {
+            $user->role_id = 1; // Kullanıcı yap
+        } else {
+            $user->role_id = 0; // Admin yap
+        }
+        $user->save();
+        return redirect()->back()->with('success', 'Kullanıcı rolü güncellendi!');
+    }
 }

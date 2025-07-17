@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/comments/{comment}/approve', [App\Http\Controllers\CommentController::class, 'approve'])->name('comments.approve');
     Route::post('/admin/users/{user}/make-admin', [App\Http\Controllers\ProfileController::class, 'makeAdmin'])->name('admin.makeAdmin');
     Route::delete('/admin/users/{user}', [App\Http\Controllers\ProfileController::class, 'deleteUser'])->name('admin.deleteUser');
+    Route::post('/admin/users/{user}/toggle-admin', [App\Http\Controllers\ProfileController::class, 'toggleAdmin'])->name('admin.toggleAdmin')->middleware('auth');
     Route::get('/comments/{comment}/edit', [App\Http\Controllers\CommentController::class, 'edit'])->name('comments.edit');
     Route::put('/comments/{comment}', [App\Http\Controllers\CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{comment}/reject', [App\Http\Controllers\CommentController::class, 'reject'])->name('comments.reject')->middleware('auth');
@@ -51,9 +52,6 @@ Route::fallback(function () {
     }
     abort(404);
 });
-
-Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminLoginController::class, 'login']);
 
 // NewsAPI headlines endpoint
 Route::get('/api/news/headlines', [NewsController::class, 'headlines']);
